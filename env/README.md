@@ -103,7 +103,7 @@ syntax assumes they are being copied directly from the container to the SD
 card):
 
 ```bash
-sudo docker cp crosscon_hv_container:/work/crosscon/rpi4-ws/firmware/boot/ $SDCARD_MOUNT/
+sudo docker cp crosscon_hv_container:/work/crosscon/rpi4-ws/firmware/boot/. $SDCARD_MOUNT/
 sudo docker cp crosscon_hv_container:/work/crosscon/rpi4-ws/config.txt $SDCARD_MOUNT/
 sudo docker cp crosscon_hv_container:/work/crosscon/rpi4-ws/bin/bl31.bin $SDCARD_MOUNT/
 sudo docker cp crosscon_hv_container:/work/crosscon/rpi4-ws/bin/u-boot.bin $SDCARD_MOUNT/
