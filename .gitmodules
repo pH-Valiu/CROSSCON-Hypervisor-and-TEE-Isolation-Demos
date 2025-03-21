@@ -19,3 +19,6 @@
 [submodule "linux"]
 	path = linux
 	url = git@github.com:pH-Valiu/linux.git
+[submodule "buildroot"]
+	path = buildroot
+	url = git@github.com:buildroot/buildroot.git
