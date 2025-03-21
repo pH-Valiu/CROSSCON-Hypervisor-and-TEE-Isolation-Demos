@@ -25,6 +25,8 @@ RUN apt-get update && \
     libcurl4 \
     libexpat1 \
     libgcc-s1 \
+    nano \
+    tree \
     binutils \
     flex \
     bison \
