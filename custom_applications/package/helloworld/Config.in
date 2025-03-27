@@ -1,0 +1,13 @@
+config BR2_PACKAGE_HELLOWORLD
+	bool "helloworld"
+	default y
+	depends on BR2_TOOLCHAIN_BUILDROOT_CXX
+	help
+	  This is just a simple hello world program.
+	  It serves the purpose of illustrating how
+	  to include a custom user application in
+	  buildroot.
+
+	  http://nothing_here.com/
+
+comment "helloworld needs a toolchain w/ C++"
