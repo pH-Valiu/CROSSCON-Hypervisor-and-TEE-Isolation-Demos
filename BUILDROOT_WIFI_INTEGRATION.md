@@ -32,8 +32,10 @@ mkdir build-aarch64
 ```
 and
 ```
-make O=build-aarch64 menuconfig
+make O=build-aarch64 BR2_EXTERNAL=/work/crosscon/custom_applications menuconfig
 ```
+(The reason for why linking to the external tree can be found in the README/branch describing the general process of kernel compilation inside Buildroot.<br>
+As long as the `build-aarch64` is not destroyed, we do not need to add `BR2_EXTERNAL=...` to future `make` calls we invoke inside the Buildroot directory.)
 
 Now a settings menu should appear. **Load** `/work/crosscon/support/br-aarch64.config`. After you have all applied all changes, **Save** the changes in the same file. Now copy the file into `build-aarch64` using 
 ```
@@ -94,24 +96,22 @@ Apply the following changes:
 ### Changes in Buildroot kernel config [`linux-aarch64.config`](wifi_demo/linux-aarch64.config)
 How can we apply the following changes? Move to `/work/crosscon/buildroot`.
 Before we invoke the menu, make sure that `build-aarch64` contains the prior copied file `.config`.
-Because Buildroot expects `build-aarch64/linux.config` to be already present (although we have not yet modified it to our destined modifications), therefore invoke:
+Because Buildroot expects `build-aarch64/linux.config` to be also present (although we have not yet modified it to our wished configuration), therefore invoke:
 ```
 cp /work/crosscon/support/linux-aarch64.config /work/crosscon/buildroot/build-aarch64/linux.config
 ```
-Now, we will create the menu-config but load in the `support/linux-aarch64.config` file.
+Now, we will create the menu-config but load in the `support/linux-aarch64.config` file. 
 After our successful modifications, we will again copy that file over into `build-aarch64/linux.config`.
 
-`build-aarch64`should contain `.config` as well as `linux.config` now. Invoke:
+`build-aarch64` should contain `.config` as well as `linux.config` now. Invoke: 
 ```
 export FORCE_UNSAFE_CONFIGURE=1
 
 make O=build-aarch64 linux-menuconfig
 ```
-Now a settings menu should appear. (If not, make sure you have copied `br-aarch64.config` as `.config` and `linux-aarch64.config` as`linux.config` into `build-aarch64`)
-**Load** `/work/crosscon/support/linux-aarch64.config`. After you have applied all changes, **Save** the changes into the same file. Now copy the file into `build-aarch64` using:
+Now a settings menu should appear. (If not, make sure you have copied `br-aarch64.config` as `.config` and `linux-aarch64.config` as `linux.config` into `build-aarch64`) **Load** `/work/crosscon/support/linux-aarch64.config`. After you have all applied all changes, **Save** the changes in the same file. Now copy the file into `build-aarch64` using 
 ```
 cp /work/crosscon/support/linux-aarch64.config /work/crosscon/buildroot/build-aarch64/linux.config
-
 ```
 <br>
 Apply the following changes:
