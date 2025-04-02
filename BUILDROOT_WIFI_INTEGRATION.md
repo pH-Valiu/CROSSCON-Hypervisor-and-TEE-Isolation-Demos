@@ -105,7 +105,6 @@ After our successful modifications, we will again copy that file over into `buil
 
 `build-aarch64` should contain `.config` as well as `linux.config` now. Invoke: 
 ```
-export FORCE_UNSAFE_CONFIGURE=1
 
 make O=build-aarch64 linux-menuconfig
 ```
@@ -529,6 +528,7 @@ This step can take very long. Wait for it to fail!
 ```sh
 cd buildroot
 
+export FORCE_UNSAFE_CONFIGURE=1
 make O=build-aarch64 -j`nproc`
 
 cd $ROOT
