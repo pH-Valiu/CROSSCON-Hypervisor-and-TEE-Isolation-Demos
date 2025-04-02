@@ -77,9 +77,9 @@ After our successful modifications, we will again copy that file over into `buil
 
 `build-aarch64` should contain `.config` as well as `linux.config` now. Invoke: 
 ```
-export FORCE_UNSAFE_CONFIGURE=1
 
 make O=build-aarch64 linux-menuconfig
+
 ```
 Now a settings menu should appear. (If not, make sure you have copied `br-aarch64.config` as `.config` and `linux-aarch64.config` as `linux.config` into `build-aarch64`) **Load** `/work/crosscon/support/linux-aarch64.config`. After you have all applied all changes, **Save** the changes in the same file. Now copy the file into `build-aarch64` using 
 ```
@@ -243,6 +243,7 @@ This step can take very long. Wait for it to fail!
 ```sh
 cd buildroot
 
+export FORCE_UNSAFE_CONFIGURE=1
 make O=build-aarch64 -j`nproc`
 
 cd $ROOT
