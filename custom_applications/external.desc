@@ -1,2 +1,2 @@
 name: CROSSCON_HV_LINUX_VM_CA
-desc: BR2 external tree containing multiple custom applications for Linux VM in Crosscon Hypervisor
+desc: BR2 external tree containing applications for Linux VM in Crosscon Hypervisor
