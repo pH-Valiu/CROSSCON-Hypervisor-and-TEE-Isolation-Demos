@@ -529,6 +529,7 @@ This step can take very long. Wait for it to fail!
 ```sh
 cd buildroot
 
+export FORCE_UNSAFE_CONFIGURE=1
 make O=build-aarch64 -j`nproc`
 
 cd $ROOT

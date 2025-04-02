@@ -60,7 +60,7 @@ RUN apt-get update && \
     automake \
     autoconf \
     libtool \
-    texinfo \
+    texinfo 
 
 
 # Install Make 4.2.1

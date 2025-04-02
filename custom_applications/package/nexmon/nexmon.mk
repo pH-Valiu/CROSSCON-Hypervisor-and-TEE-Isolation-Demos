@@ -26,7 +26,7 @@ define NEXMON_BUILD_CMDS
 	export Q=@; \
 	$(MAKE) install-firmware -C $(@D)/patches/bcm43455c0/7_45_189/nexmon_csi; \
 	$(MAKE) -C $(@D)/utilities/nexutil; \
-	$(MAKE) install -C $(@D)/utilities/nexutil; \
+	$(MAKE) install -C $(@D)/utilities/nexutil;
 endef
 
 
