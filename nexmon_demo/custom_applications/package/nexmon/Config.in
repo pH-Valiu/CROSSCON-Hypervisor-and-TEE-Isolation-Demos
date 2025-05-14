@@ -1,0 +1,14 @@
+config BR2_PACKAGE_NEXMON
+	bool "nexmon"
+	default y
+	depends on BR2_INSTALL_LIBSTDCPP
+	select BR2_PACKAGE_GMP
+	select BR2_PACKAGE_QPDF
+	help
+	  Include the nexmon_csi library by adding the custom nexmon 
+	  software and replacing the wifi brcmfmac driver.
+	  This packages requires Linux Kernel Version 5.10.92
+
+	  https://github.com/nexmonster/nexmon_csi_bin/blob/main/
+
+comment "nexmon needs a toolchain w/ C++ and a Linux kernel to be built (v5.10.92)"
