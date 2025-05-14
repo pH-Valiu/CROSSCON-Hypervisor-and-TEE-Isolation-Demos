@@ -129,6 +129,7 @@ IMPORTANT NOTE: Some of those configs already exist (either in the "not set" or 
 - `CONFIG_INITRAMFS_SOURCE`="/work/crosscon/buildroot/build-aarch64/images/rootfs.cpio" (THIS IS VERY IMPORTANT)
 - `CONFIG_LOCALVERSION`="-v8+"		(THIS IS VERY IMPORTANT)
 - `CONFIG_CMDLINE`=""
+- `CONFIG_CROSSCONHYP_SHMEM`=y		(This is not necessary but for future work important)
 - `CONFIG_SERIAL_8250_LPSS`=y
 - `CONFIG_SERIAL_8250_MID`=y
 - `CONFIG_SERIAL_8250_TEGRA`=y
