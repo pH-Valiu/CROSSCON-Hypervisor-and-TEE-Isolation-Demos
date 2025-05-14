@@ -66,8 +66,9 @@ Apply the following changes:
     - For **Root Filesystem overlay directories**: Keep the paths to the export directories of your additional binaries until you divert to including them the proper way using the Buildroot packaging system
 - **Kernel**:
     - Enable `Kernel`
-    - For **Kernel Version**: Either choose a specific kernel version yourself but keep in mind that those do NOT contain the 3 commits issued by CROSSCON partners to enable "stuff". Therefore, if you want a specific valid version, you need to fork from the CROSSCON Hypervisor Demos linux repository, restore or fast-forward to the commit resembling your wanted kernel version (fast-forwarding requires setting an upstream to either the official linux kernel repository (https://github.com/torvalds/linux.git) or a repository containing stable kernel version (https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git) and forwarding to the specific commit). Afterwards, you need to cherry-pick those 3 commits on top of your kernel version commit. If any merge conflicts occur you will have to resolve them manually (use your brain). Now set your fork as the `Custom Git repository`.
-    - For **Custom repository version**: Set it to the branch name of your working fork
+    - For **Kernel Version**: Set it to `(Custom Git Repository)`
+    - For **URL of custom repository**: Set it to `https://github.com/pH-Valiu/linux_raspberrypi.git` or any comparable repository like that.
+    - For **Custom repostiory version**: Set it to `rpi-5.10.92-port` as it contains the code at kernel version 5.10.92 with 3 additional commit required for CROSSCON Hypervisor.
     - For **Kernel configuration**: Set it to `Using a custom (def)config file` and specify `/work/crosscon/buildroot/build-aarch64/linux.config` as your kernel config file
     - Checkmark `Build a Device Tree Blob (DTB)` and set **Out-of-tree Device Tree Source file paths** to the rPI's `.dts` file (`/work/crosscon/rpi4-ws/rpi4.dts`) (Theoretically this step is optional as you can also compile the Device Tree Source file into a Device Tree Blob file yourself. The lloader script simply needs the `.dtb` file. Incorporating the compile process into the Buildroot is more elegant IMHO.)
 - **Target packages**:
