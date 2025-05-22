@@ -1,1 +1,2 @@
 source "$BR2_EXTERNAL_CROSSCON_HV_LINUX_VM_CA_PATH/package/nexmon/Config.in"
+source "$BR2_EXTERNAL_CROSSCON_HV_LINUX_VM_CA_PATH/package/automatic_nexmon_client/Config.in"
