@@ -68,7 +68,7 @@ A few informations about every package:
     - Contains `brcmfmac43455-sdio.bin` wifi firmware which replaces the original firmware in `lib/firmware/brcm/` in VM
     - Contains `brcmfmac.ko` wifi driver which replaces the original driver in `/lib/modules/5.10.92-v8+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko` in VM
 
-    - These are precompiled binaries compiled for raspberrypi kernel version **5.10.92-v8+**. They are being automatically downloaded from [here](https://github.com/pH-Valiu/nexmon_csi_bin).
+    - These are precompiled binaries compiled for raspberrypi kernel version **5.10.92-v8+**. They are being automatically downloaded from [this repository](https://github.com/pH-Valiu/nexmon_csi_bin).
 2. *automatic_nexmon_client*:
     - Contains `S90nexmon` startup script which inserts the nexmon_csi kernel module and launches our shared memory protocol via the python script in the VM. That file can be found in `/etc/init.d` in VM
     - Contains `nexmon_client.py` python script which handles the protocol. Can be found under `/usr/bin` in VM
