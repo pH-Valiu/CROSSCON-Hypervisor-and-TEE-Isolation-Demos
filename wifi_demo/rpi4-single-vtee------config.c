@@ -28,14 +28,14 @@ struct vm_config linux = {
         .ipc_num = 1,
         .ipcs = (struct ipc[]) {
             {
-                .base = 0x09000000,
-                .size = 0x00800000,
+                .base = 0x08000000,
+                .size = 0x00200000,
                 .shmem_id = 0,
             },
         },
         .dev_num = 5,
         .devs =  (struct dev_region[]) {
-	    {
+            {
 		.pa   = 0x7e300000,
 		.va   = 0x7e300000,
 		.size = 0x100,
@@ -44,7 +44,7 @@ struct vm_config linux = {
 		    0, 4, 126
 		}
 	    },
-            {
+	    {
                 .pa   = 0xfc000000,
                 .va   = 0xfc000000,
                 .size = 0x03000000,
@@ -73,7 +73,7 @@ struct vm_config linux = {
                     177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188,
                     189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200,
                     201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212,
-                    213, 214, 215, 216,
+                    213, 214, 215, 216, 
                 }
             },
             {
@@ -122,8 +122,8 @@ struct vm_config optee_os = {
         .ipc_num = 1,
         .ipcs = (struct ipc[]) {
             {
-                .base = 0x09000000,
-                .size = 0x00800000,
+                .base = 0x08000000,
+                .size = 0x00200000,
                 .shmem_id = 0,
             }
         },
@@ -155,7 +155,7 @@ struct config config = {
     CONFIG_HEADER
     .shmemlist_size = 1,
     .shmemlist = (struct shmem[]) {
-        [0] = { .size = 0x00800000, },
+        [0] = { .size = 0x00200000, },
     },
     .vmlist_size = 1,
     .vmlist = {

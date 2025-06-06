@@ -48,6 +48,20 @@ RUN apt-get update && \
     fdisk \
     dosfstools
 
+# Install build tools for nexmon
+RUN apt-get update && \
+    apt-get install -y \
+    libgmp3-dev \
+    gawk \
+    qpdf \ 
+    bison \
+    flex \
+    make \
+    automake \
+    autoconf \
+    libtool \
+    texinfo 
+
 
 # Install Make 4.2.1
 RUN wget http://ftp.pl.debian.org/debian/pool/main/m/make-dfsg/make_4.2.1-1.2_amd64.deb \

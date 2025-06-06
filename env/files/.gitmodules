@@ -12,10 +12,13 @@
 	url = https://github.com/bao-project/opensbi.git
 [submodule "linux"]
 	path = linux
-	url = http://github.com/crosscon/linux.git
+	url = http://github.com/pH-Valiu/linux.git
 [submodule "optee_test"]
 	path = optee_test
 	url = http://github.com/crosscon/optee_test.git
 [submodule "bitcoin-wallet"]
 	path = bitcoin-wallet
 	url = http://github.com/crosscon/bitcoin-wallet.git
+[submodule "buildroot"]
+	path = buildroot
+	url = https://github.com/buildroot/buildroot.git

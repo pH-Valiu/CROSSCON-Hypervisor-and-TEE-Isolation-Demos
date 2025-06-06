@@ -1,0 +1,17 @@
+config BR2_PACKAGE_AUTOMATIC_NEXMON_CLIENT
+        bool "automatic nexmon client"
+        default n
+	depends on BR2_INIT_BUSYBOX
+	depends on BR2_PACKAGE_KMOD
+        select BR2_PACKAGE_PYTHON3
+	select BR2_PACKAGE_NEXMON
+        help
+	  Include all required files that make up a nexmon client
+	  in the context of our CROSSCON use case fetching wifi csi
+	  data. Added files include an automatic startup script and
+	  a python script responsible for collecting nexmon output
+	  and writing it to memory.
+
+	  http://no-url.de
+
+comment "automatic nexmon client needs a python3 and a Linux kernel to be built (v5.10.92-v8+)"

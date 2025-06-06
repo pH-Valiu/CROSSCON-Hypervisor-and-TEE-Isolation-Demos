@@ -28,8 +28,8 @@ struct vm_config linux = {
         .ipc_num = 1,
         .ipcs = (struct ipc[]) {
             {
-                .base = 0x09000000,
-                .size = 0x00800000,
+                .base = 0x08000000,
+                .size = 0x00200000,
                 .shmem_id = 0,
             },
         },
@@ -122,8 +122,8 @@ struct vm_config optee_os = {
         .ipc_num = 1,
         .ipcs = (struct ipc[]) {
             {
-                .base = 0x09000000,
-                .size = 0x00800000,
+                .base = 0x08000000,
+                .size = 0x00200000,
                 .shmem_id = 0,
             }
         },
@@ -155,7 +155,7 @@ struct config config = {
     CONFIG_HEADER
     .shmemlist_size = 1,
     .shmemlist = (struct shmem[]) {
-        [0] = { .size = 0x00800000, },
+        [0] = { .size = 0x00200000, },
     },
     .vmlist_size = 1,
     .vmlist = {

@@ -1,0 +1,72 @@
+#! /bin/sh
+#
+# Load in brcmfmac (nexmon kernel) module and start python script
+#
+
+PYTHON_SCRIPT="/usr/bin/nexmon_client.py"
+
+start() {
+    echo "Starting S90nexmon"
+
+
+    # Check if brcmfmac module exists and load it
+    if modinfo brcmfmac > /dev/null 2>&1; then
+	echo "Loading brcmfmac module..."
+	modprobe brcmfmac
+	echo 250 > /sys/class/leds/ACT/brightness
+	sleep 1
+	echo 0 > /sys/class/leds/ACT/brightness
+	sleep 1
+	echo 250 > /sys/class/leds/ACT/brightness
+	sleep 1
+	echo 0 > /sys/class/leds/ACT/brightness
+	sleep 1
+	echo 255 > /sys/class/leds/ACT/brightness
+	sleep 1
+	echo 0 > /sys/class/leds/ACT/brightness
+    else
+	echo "Error: brcmfmac module not found"
+	exit 1
+    fi
+
+
+    # Check if python3 exists and run the script
+    if ! command -v python3 >/dev/null 2>&1; then
+	echo "Error: python3 not found."
+	exit 1
+    fi
+
+
+    # Check if python script exists
+    if [ -f "$PYTHON_SCRIPT" ]; then
+	echo "Executing python script..."
+	python3 "$PYTHON_SCRIPT" &
+    else
+	echo "Error: python script not found."
+	exit 1
+    fi
+}
+
+stop() {
+    echo "Stopping S90nexmon. Does nothing at the moment"
+}
+
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    restart)
+	stop
+	start
+	;;
+    *)
+	echo "Usage: /etc/init.d/S90nexmon (start|stop|restart)"
+	exit 1
+	;;
+esac
+
+
+exit 0
