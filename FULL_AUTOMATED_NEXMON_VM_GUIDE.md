@@ -1083,5 +1083,5 @@ devmem 0x9000138 64
 ## Additional notes
 
 ### Using just the linux vm
-If you, for example, want to do a triple CROSSCON Hypervisor VM setup and therefore don't need `crossconhyp.bin` but just our Nexmon VM binary, then use `linux-rpi4.bin` which is being created during the [lloader step](#step-6-build-linux-binary-with-lloader).
+If you, for example, want to do a triple CROSSCON Hypervisor VM setup and therefore don't need `crossconhyp.bin` but just our Nexmon VM binary, then use `linux-rpi4.bin` which is being created during the [lloader step](#step-6---build-linux-binary-with-lloader).
 Of course you need to modify `config.c` accordingly then.
