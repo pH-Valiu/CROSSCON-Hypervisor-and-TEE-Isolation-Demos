@@ -9,13 +9,12 @@ Side notes:
 - This guide is the culmination of all my complete work and many different singular `.md` guides that focused on a single point of the full process. In case of errors in this guide, you might wanna check out the others as well.
 <details>
     <summary><b>Other interesting Guides:</b></summary>
-    <pre>
+	
 - Setting up the docker environment for building: [env/README.md](env/README.md)
 - Most simplest Linux VM on RPI4: [rpi4-ws/README.md](rpi4-ws/README.md) (following this guide in this branch might not lead to success)
 - Adding custom packages in Linux VM build via Buildroot: [ADDING_CUSTOM_PACKAGES.md](ADDING_CUSTOM_PACKAGES.md)
 - Enabling wifi in Linux VM running on CROSSCON Hypervisor: [BUILDROOT_WIFI_INTEGRATION.md](BUILDROOT_WIFI_INTEGRATION.md)
 - Including nexmon_csi in Linux VM running on CROSSCON Hypervisor: [BUILDROOT_NEXMON_INTEGRATION.md](BUILDROOT_NEXMON_INTEGRATION.md)
-    </pre>
 </details>
 
 ## **Requirements**
