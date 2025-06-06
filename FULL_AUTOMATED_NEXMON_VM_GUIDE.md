@@ -21,7 +21,7 @@ Side notes:
 - We compile for **aarch64 RPI4** and assume [rpi4.dts](rpi4-ws/rpi4.dts) to be its correct device tree!
 - Please use the docker environment for building! A guide on how to setup that docker environment can be found here: [env/README.md](env/README.md).
 - Linux Kernel needs to be compiled for version 5.10.92-v8+ inside Buildroot and not externally.
-- We need to enable the WIFI chip in the Hypervisor config file using the RPI device tree. See [this section](#enabling-wifi-chip-in-crosscon-hypervisor-for-rpi). 
+- We need to enable the WIFI chip in the Hypervisor config file using the RPI device tree. See [this section](#changes-in-crosscon-hypervisor-config-configc). 
 
 Please refer to the [nexmon_automated_demo](nexmon_automated_demo) folder containing:
 - all `.config` files for proper building of the VM
@@ -68,7 +68,7 @@ A few informations about every package:
     - Contains `brcmfmac43455-sdio.bin` wifi firmware which replaces the original firmware in `lib/firmware/brcm/` in VM
     - Contains `brcmfmac.ko` wifi driver which replaces the original driver in `/lib/modules/5.10.92-v8+/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko` in VM
 
-    - These are precompiled binaries compiled for raspberrypi kernel version **5.10.92-v8+**. They are being automatically downloaded from `https://github.com/pH-Valiu/nexmon_csi_bin`.
+    - These are precompiled binaries compiled for raspberrypi kernel version **5.10.92-v8+**. They are being automatically downloaded from [here](https://github.com/pH-Valiu/nexmon_csi_bin).
 2. *automatic_nexmon_client*:
     - Contains `S90nexmon` startup script which inserts the nexmon_csi kernel module and launches our shared memory protocol via the python script in the VM. That file can be found in `/etc/init.d` in VM
     - Contains `nexmon_client.py` python script which handles the protocol. Can be found under `/usr/bin` in VM
@@ -132,7 +132,7 @@ Apply the following changes:
     - Enable `Kernel`
     - For **Kernel Version**: Set it to `(Custom Git Repository)`
     - For **URL of custom repository**: Set it to `https://github.com/pH-Valiu/linux_raspberrypi.git` or any comparable repository like that.
-    - For **Custom repostiory version**: Set it to `rpi-5.10.92-port` as it contains the code at kernel version 5.10.92 with 3 additional commit required for CROSSCON Hypervisor.
+    - For **Custom repository version**: Set it to `rpi-5.10.92-port` as it contains the code at kernel version 5.10.92 with 3 additional commit required for CROSSCON Hypervisor.
     - For **Kernel configuration**: Set it to `Using a custom (def)config file` and specify `/work/crosscon/buildroot/build-aarch64/linux.config` as your kernel config file
     - Checkmark `Build a Device Tree Blob (DTB)` and set **Out-of-tree Device Tree Source file paths** to the RPI's `.dts` file (`/work/crosscon/rpi4-ws/rpi4.dts`) (Theoretically this step is optional as you can also compile the Device Tree Source file into a Device Tree Blob file yourself. The lloader script simply needs the `.dtb` file. Incorporating the compile process into the Buildroot is more elegant IMHO.)
 - **Target packages**:
@@ -140,21 +140,21 @@ Apply the following changes:
     - Keep the default **BusyBox configuration file** and additionally set **Additional BusyBox configuration fragment files** to `/work/crosscon/buildroot/build-aarch64/busybox-additional.config` to make BusyBox include additional packages like *modinfo*, etc.
     - Enable `Show packages that are also provided by busybox`
     - **Development Tools** (all optional):
-	- Enable `gawk`
-	- Enable `make`
-	- Enable `sed`
-	- Enable `tree`
+        - Enable `gawk`
+        - Enable `make`
+        - Enable `sed`
+        - Enable `tree`
     - **Hardware Handling** -> **Firmware**:
         - Enable `brcmfmac-sdio-firmware-rpi` (This is the main firmware required for the wifi chip to work as it contains its driver)
         - Enable `brcmfmac-sdio-firmware-rpi-wifi`
     - **Interpreter languages and scripting**:
-	- Enable `python3` (This is very important. Our shared memory protocol runs via a python script. Without python3 we can not communicate with nexmon_csi over memory)
-	    - Set **python3 module format to install** to `.pyc compiled sources only`
-	    - Under **core python3 modules**:
-		- Enable `ssl` (optional)
-		- Enable `unicodedata-module` (50/50 whether needed or not, so just keep it)
-		- Enable `xz module` (optional)
-		- Enable `zlib module` (optional)
+        - Enable `python3` (This is very important. Our shared memory protocol runs via a python script. Without python3 we can not communicate with nexmon_csi over memory)
+            - Set **python3 module format to install** to `.pyc compiled sources only`
+            - Under **core python3 modules**:
+                - Enable `ssl` (optional)
+                - Enable `unicodedata-module` (50/50 whether needed or not, so just keep it)
+                - Enable `xz module` (optional)
+                - Enable `zlib module` (optional)
     - **Networking applications**:
         - Enable `crda` (Used for regulatory compliance for wifi communication)
         - Enable (`dhcp` (ISC) and `dhcp_client`) OR/AND `dhcpcd`. (Either is fine, we just need a dhcp on the RPI. Though that actually might not be true. A dhcp is only needed if you ever plan to connect a wifi the regular way. If you just want to use nexmon to gather csi data, I don't think you need a dhcp service)
@@ -171,15 +171,15 @@ Apply the following changes:
             - Enable `Install wpa_cli binary`
             - Enable `Install wpa_passphrase binary` (If you plan to connect to a wifi, then this is very important as we can use it to store the wifi's password)
     - **Security**:
-	- Enable `urandom-initscripts` (unsure whether actually needed, but better seeding of RNG's is always important)
+        - Enable `urandom-initscripts` (unsure whether actually needed, but better seeding of RNG's is always important)
     - **System tools**:
         - Enable `kmod` (Might be required to properly handle kernel modules)
         - Enable `kmod utilites`
     - **Text editors and viewers** (all optional):
-	- Enable `nano`
-	- Enable `optimize for size`
-	- Enable `vim`
-	- Enable `install runtime`
+        - Enable `nano`
+        - Enable `optimize for size`
+        - Enable `vim`
+        - Enable `install runtime`
 - **Filesystem images**:
     - Enable `cpio the root filesystem (for use as an initial RAM filesystem)`
     - Set **cpio type** to `cpio the whole root filesystem`
@@ -973,7 +973,6 @@ Each Sample is structed like this:
 | **7-8**     | 1* uint_16  | StreamId        |
 | **9-10**    | 1* uint_16  | TimeOffset (s)  |
 | **11-266**  | 256* uint_8 | Data            |
-|-------------|-------------|-----------------|
 
 The Parameter section is structured like this:
 |    Bytes    |    Data type    |                Usage                |
@@ -987,7 +986,6 @@ The Parameter section is structured like this:
 | **7**       | 1* uint_8       | Return value                        |
 | **8-11**    | 1* uint_32      | # Retrieved total Samples           |
 | **12-311**  | 300* uint_8     | MACs to filter for (=)              |
-|-------------|-----------------|-------------------------------------|
 
 Flags is one byte: **0bx00000yz** where:
 - **x**: set to 1 if MAC filter shall be active, 0 if not
@@ -995,11 +993,12 @@ Flags is one byte: **0bx00000yz** where:
 - **z**: set to 1 to start nexmon_csi data gathering, is being set 0 when finished.
 
 There are three different execution variants:
+
 **MAC filter is on:**
 - Data gathering will finish if for all `Number of MACs` many devices `# Samples per Device` many samples have been gathered or `Timeout` was hit.
 - If `Number of MACs` exceeds MAX_DEVICES (*50*) then return is **1**.
 - If combination of `Number of MACs` and `# Samples per Device` exceeds DATA_MEMORY_MAX_SIZE, then return is **2**.
-- Only samples whose MAC is one of `MACs to filter for` are being collected.
+- Only samples, whose MAC is one of `MACs to filter for`, are being collected.
 - A device can never store more samples than `# Samples per Device`.
 - Parameters marked with `(=)` are only being used in this execution mode. Otherwise they are irrelevant.
 
