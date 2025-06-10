@@ -572,8 +572,11 @@ cd optee_client
 
 git checkout master
 make CROSS_COMPILE=aarch64-none-linux-gnu- WITH_TEEACL=0 O=out-aarch64
+make CROSS_COMPILE=aarch64-none-linux-gnu- WITH_TEEACL=0 O=out-aarch64 DESTDIR=out-aarch64/export install
+
 git checkout optee2
 make CROSS_COMPILE=aarch64-none-linux-gnu- WITH_TEEACL=0 O=out2-aarch64
+make CROSS_COMPILE=aarch64-none-linux-gnu- WITH_TEEACL=0 O=out2-aarch64 DESTDIR=out2-aarch64/export install
 
 cd $ROOT
 
@@ -811,7 +814,8 @@ If successful, the module will be visible under `lsmod` and you might have gotto
 
 Now:
 1. Use makecsiparams to generate a base64 encoded parameter string that can be used to configure the extractor.
-   The following example call generates a parameter string that enables collection on channel 12 with 20 MHz bandwidth on the first core for the first spatial stream
+   The following example call generates a parameter string that enables collection on channel 12 with 20 MHz bandwidth on the first core for the first spatial stream.
+   Before just copying the same params though, please check with a tool like WifiAnalyzer which wifi networks are active in your area and modify the channel and bandwidth accordingly.
     ```
     makecsiparams -c 12/20 -C 1 -N 1
     m+IBEQGIAgAAESIzRFWqu6q7qrsAAAAAAAAAAAAAAAAAAA== (different for you)
@@ -830,4 +834,6 @@ Now:
     ```
 If you don't have gawk installed, do it manually. (e.g. `iw phy phy0 interface add mon0 type monitor`)
 
-6. Collect CSI by listening on UDP socket 5500, e.g. by using tcpdump: `tcpdump -i wlan0 dst port 5500`. There will be one UDP packet per configured core and spatial stream for each incoming frame.
+6. Collect CSI by listening on UDP socket 5500, e.g. by using tcpdump: `tcpdump -i wlan0 dst port 5500`. 
+   There will be one UDP packet per configured core and spatial stream for each incoming frame.
+   If no packets were recorded, you will have to try another channel/bandwidth.
