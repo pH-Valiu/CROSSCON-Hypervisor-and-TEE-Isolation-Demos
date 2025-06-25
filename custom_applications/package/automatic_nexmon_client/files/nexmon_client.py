@@ -411,6 +411,11 @@ def check_params_object(parameters) -> int:
 def main():
         print("Nexmon client started. Monitoring memory.")
 
+        # zero out params area first
+        params = Parameters()
+        raw = string_at(addressof(params), sizeof(params))
+        write_to_devmem_aligned(SHMEM_BASE_ADDR + PARAM_ADDR, raw, PARAM_BYTE_SIZE)
+
         while True:
                 try:
                         # try to get Parameters object
