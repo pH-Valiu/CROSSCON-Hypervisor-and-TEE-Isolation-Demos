@@ -18,7 +18,7 @@ Side notes:
 </details>
 
 ## **Requirements**
-- We compile for **aarch64 RPI4** and assume [rpi4.dts](rpi4-ws/rpi4.dts) to be its correct device tree!
+- We compile for **aarch64 RPI4** and assume [rpi4.dts](rpi4-ws/rpi4.dts) to be its correct device tree! When building this image for the triple VM setup, use [nexmon.dts](rpi4-ws/nexmon.dts) instead.
 - Please use the docker environment for building! A guide on how to setup that docker environment can be found here: [env/README.md](env/README.md).
 - Linux Kernel needs to be compiled for version 5.10.92-v8+ inside Buildroot and not externally.
 - We need to enable the WIFI chip in the Hypervisor config file using the RPI device tree. See [this section](#changes-in-crosscon-hypervisor-config-configc). 
@@ -134,7 +134,7 @@ Apply the following changes:
     - For **URL of custom repository**: Set it to `https://github.com/pH-Valiu/linux_raspberrypi.git` or any comparable repository like that.
     - For **Custom repository version**: Set it to `rpi-5.10.92-port` as it contains the code at kernel version 5.10.92 with 3 additional commit required for CROSSCON Hypervisor.
     - For **Kernel configuration**: Set it to `Using a custom (def)config file` and specify `/work/crosscon/buildroot/build-aarch64/linux.config` as your kernel config file
-    - Checkmark `Build a Device Tree Blob (DTB)` and set **Out-of-tree Device Tree Source file paths** to the RPI's `.dts` file (`/work/crosscon/rpi4-ws/rpi4.dts`) (Theoretically this step is optional as you can also compile the Device Tree Source file into a Device Tree Blob file yourself. The lloader script simply needs the `.dtb` file. Incorporating the compile process into the Buildroot is more elegant IMHO.)
+    - Checkmark `Build a Device Tree Blob (DTB)` and set **Out-of-tree Device Tree Source file paths** to the RPI's `.dts` file (`/work/crosscon/rpi4-ws/rpi4.dts` or `/work/crosscon/rpi4-ws/nexmon.dts`) (Theoretically this step is optional as you can also compile the Device Tree Source file into a Device Tree Blob file yourself. The lloader script simply needs the `.dtb` file. Incorporating the compile process into the Buildroot is more elegant IMHO.)
 - **Target packages**:
     - Enable `BusyBox` if not already enabled
     - Keep the default **BusyBox configuration file** and additionally set **Additional BusyBox configuration fragment files** to `/work/crosscon/buildroot/build-aarch64/busybox-additional.config` to make BusyBox include additional packages like *modinfo*, etc.
@@ -859,6 +859,9 @@ cd $ROOT
 ```
 
 ### Step 6 - Build linux binary with lloader
+
+**Note:** If building the triple VM version, replace `rpi4.dtb` with `crosscon.dtb`.
+
 ```sh
 cd lloader
 rm linux-rpi4.bin
@@ -1087,5 +1090,4 @@ devmem 0x9000138 64
 ## Additional notes
 
 ### Using just the linux vm
-If you, for example, want to do a triple CROSSCON Hypervisor VM setup and therefore don't need `crossconhyp.bin` but just our Nexmon VM binary, then use `linux-rpi4.bin` which is being created during the [lloader step](#step-6---build-linux-binary-with-lloader).
-Of course you need to modify `config.c` accordingly then.
+If you, for example, want to do a triple CROSSCON Hypervisor VM setup and therefore don't need `crossconhyp.bin` but just our Nexmon VM binary, then use `linux-rpi4.bin` which is being created during the [lloader step](#step-6---build-linux-binary-with-lloader). Note that for the triple VM setup, the device tree `rpi4.dts` must be replaced with the stripped down `nexmon.dts`. More details for how to run the triple VM setup and a working Hypervisor `config.c` file can be found in [this repo](https://github.com/crosscon/context-based-auth-crosscon-demo/tree/master).
