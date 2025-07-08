@@ -317,19 +317,23 @@ sdhci@7e300000 {
 			};
 		};
 ```
-To add a new device to a VM, we need to follow the configurations described in the CROSSCON Hypervisor documentation. Hence, we need to increment the `.dev_num` counter and add this device:
+To add a new device to a VM, we need to follow the configurations described in the CROSSCON Hypervisor documentation. 
+Since `shdci` device is under `soc` device node, the device's address `0x7e300000` has to be mapped using `soc`'s memory address mapping.
+Therefore, our device has actual physical address: `fe300000`.
+Furthermore, the interrupts specified in the device tree have to be incremented by `32` before adding them to the hyerpvisor `config.c` file, due to CROSSCON Hypervisor shenanigans.
+Hence, we need to increment the `.dev_num` counter and add this device:
 ```c
 {
-    .pa   = 0x7e300000,
-    .va   = 0x7e300000,
+    .pa   = 0xfe300000,
+    .va   = 0xfe300000,
     .size = 0x100,
-    .interrupt_num = 3,
+    .interrupt_num = 1,
     .interrupts = (irqid_t[]) {
-        0, 4, 126
+        158
     }
 },
 ```
-Furthermore, since the interrupt 126 would be a duplicate, we have to remove it from the latter list and decrement its `.interrupts_num` counter.
+Furthermore, since the interrupt 158 would be a duplicate, we have to remove it from the latter list and decrement its `.interrupts_num` counter.
 
 #### Modifying shared memory
 Find the sections where shared memory is being allocated and assigned:
