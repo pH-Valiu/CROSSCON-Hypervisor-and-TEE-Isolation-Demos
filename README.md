@@ -1095,3 +1095,18 @@ devmem 0x9000138 64
 
 ### Using just the linux vm
 If you, for example, want to do a triple CROSSCON Hypervisor VM setup and therefore don't need `crossconhyp.bin` but just our Nexmon VM binary, then use `linux-rpi4.bin` which is being created during the [lloader step](#step-6---build-linux-binary-with-lloader). Note that for the triple VM setup, the device tree `rpi4.dts` must be replaced with the stripped down `nexmon.dts`. More details for how to run the triple VM setup and a working Hypervisor `config.c` file can be found in [this repo](https://github.com/crosscon/context-based-auth-crosscon-demo/tree/master).
+
+## Acknowledgments
+
+The work presented in this repository is part of the
+[CROSSCON project](https://crosscon.eu/) that received funding from the European
+Union’s Horizon Europe research and innovation programme under grant agreement
+No 101070537.
+
+<p align="center">
+    <img src="https://crosscon.eu/sites/crosscon/themes/crosscon/images/eu.svg" width=10% height=10%>
+</p>
+
+<p align="center">
+    <img src="https://crosscon.eu/sites/crosscon/files/public/styles/large_1080_/public/content-images/media/2023/crosscon_logo.png?itok=LUH3ejzO" width=25% height=25%>
+</p>
